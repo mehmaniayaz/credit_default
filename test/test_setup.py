@@ -9,3 +9,4 @@ class TestSetUp(unittest.TestCase):
         self.assertEqual(len(df._get_numeric_data().columns), 10+1-2)
         self.assertEqual(len(df), 100)
         self.assertEqual(len(df.columns), 11)
+
