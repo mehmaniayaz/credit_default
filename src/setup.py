@@ -5,6 +5,14 @@ import random
 
 
 def generate_cat_num_dataframe(n_samples=100, n_features=10, n_cats=2):
+    '''
+    Summary: generate a random dataframe with a mix of categorical and numerical variables and a single
+    binary target variable.
+    :param n_samples: number of samples
+    :param n_features: number of features
+    :param n_cats: number of categorical features
+    :return: dataframe
+    '''
     X, y = make_classification(n_samples=n_samples, n_features=n_features, n_redundant=2)
     df = pd.DataFrame(X, columns=['feature_' + str(x) for x in range(np.shape(X)[1])])
     cat_feature_list = random.sample(list(df.columns), n_cats)
