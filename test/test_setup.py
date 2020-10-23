@@ -15,3 +15,5 @@ class TestSetUp(unittest.TestCase):
         y = [1, 2, 0, 3, 2, 0]
         y_pred = encode_string_list(x)
         self.assertListEqual(y, y_pred)
+
+    def test_encode_df_cat_columns(self):

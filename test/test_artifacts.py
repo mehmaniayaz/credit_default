@@ -24,8 +24,8 @@ class TestArtifactsGeneration(unittest.TestCase):
         generate_cat_cat_jitter_crossplot(x, y)
         plt.close('all')
 
-    def test_generate_cat_cat_pairplot(self):
-        generate_cat_cat_pairplot(df)
+    def test_generate_cat_jitter_pairplot(self):
+        generate_cat_jitter_pairplot(self.df)
 
     def tearDown(self) -> None:
         shutil.rmtree(Path('./tmpt'))
