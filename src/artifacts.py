@@ -22,9 +22,7 @@ def generate_mca(df, save_path):
 
     mca.fit(df_cc_cat)
 
-    fig = plt.figure()
-    ax = fig.add_subplot(1, 1)
-    ax = mca.plot_coordinates(
+    mca.plot_coordinates(
         X=df_cc_cat,
         ax=None,
         figsize=(7, 7),
@@ -36,5 +34,6 @@ def generate_mca(df, save_path):
         show_column_labels=True,
         legend_n_cols=2
     )
-    fig.savefig(save_path+Path('mca.png'))
+    plt.savefig(save_path/Path('mca.png'))
+    plt.close()
 

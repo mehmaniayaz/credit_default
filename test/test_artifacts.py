@@ -6,6 +6,8 @@ import pandas as pd
 import numpy as np
 import os
 from pathlib import Path
+import shutil
+
 
 class TestArtifactsGeneration(unittest.TestCase):
     def setUp(self) -> None:
@@ -14,7 +16,7 @@ class TestArtifactsGeneration(unittest.TestCase):
         self.cat_feature_list = [x for x in self.df.columns if x not in self.df._get_numeric_data().columns]
 
     def test_generate_mca(self):
-        generate_mca(df = self.df,path=Path('./tmpt'))
+        generate_mca(df=self.df, save_path=Path('./tmpt'))
 
     def tearDown(self) -> None:
-        pass
+        shutil.rmtree(Path('./tmpt'))
