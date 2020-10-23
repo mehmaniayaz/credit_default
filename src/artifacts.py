@@ -35,5 +35,9 @@ def generate_mca(df, save_path):
         legend_n_cols=2
     )
     plt.savefig(save_path/Path('mca.png'))
-    plt.close()
+    plt.close('all')
+
+def generate_cat_cat_jitter_crossplot(x,y,**kwargs):
+
+    
 
