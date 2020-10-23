@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import prince
 from pathlib import Path
 import seaborn as sns
-from src.setup import encode_string_list
+from src.setup import encode_string_list, encode_df_cat_columns
 import numpy as np
 
 
@@ -49,3 +49,13 @@ def generate_cat_cat_jitter_crossplot(x, y, **kwargs):
     x = map(randomized, x)
     y = map(randomized, y)
     sns.scatterplot(x, y, **kwargs)
+
+def generate_cat_jitter_pairplot(df):
+    cat_feature_list = [x for x in df.columns if x not in df._get_numeric_data().columns]
+    df,dict_rename = encode_df_cat_columns(df)
+    df[cat_feature_list] = df[cat_feature_list].applymap(lambda x: x + (np.random.rand() - 0.5) / 3)
+
+    ax = sns.pairplot(df=df,hue='target')
+    ax.savefig(Path('./tmpt'))
+    plt.close('all')
+

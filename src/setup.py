@@ -44,3 +44,5 @@ def encode_string_list(x):
     dict_encode = dict(zip(keys, values))
     y = [dict_encode[x] for x in x]
     return y
+
+def encode_df_cat_columns(df):
