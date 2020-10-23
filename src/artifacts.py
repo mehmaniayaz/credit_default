@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import prince
 from pathlib import Path
 import seaborn as sns
+from src.setup import encode_string_list
 import numpy as np
 
 
@@ -41,6 +42,8 @@ def generate_mca(df, save_path):
 
 
 def generate_cat_cat_jitter_crossplot(x, y, **kwargs):
+    x = encode_string_list(x)
+    y = encode_string_list(y)
 
     x = x + (np.random.rand() - 0.5) / 3
     y = y + (np.random.rand() - 0.5) / 3

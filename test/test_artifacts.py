@@ -9,6 +9,8 @@ import matplotlib.pyplot as plt
 
 class TestArtifactsGeneration(unittest.TestCase):
     def setUp(self) -> None:
+        if os.path.isdir(Path('./tmpt')):
+            shutil.rmtree(Path('./tmpt'))
         os.mkdir(Path('./tmpt'))
         self.df = generate_cat_num_dataframe(n_samples=100, n_features=10, n_cats=2)
         self.cat_feature_list = [x for x in self.df.columns if x not in self.df._get_numeric_data().columns]
