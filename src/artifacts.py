@@ -45,7 +45,7 @@ def generate_cat_cat_jitter_crossplot(x, y, **kwargs):
     x = encode_string_list(x)
     y = encode_string_list(y)
 
-    x = x + (np.random.rand() - 0.5) / 3
-    y = y + (np.random.rand() - 0.5) / 3
+    randomized = lambda x: x + (np.random.rand() - 0.5) / 3
+    x = map(randomized, x)
+    y = map(randomized, y)
     sns.scatterplot(x, y, **kwargs)
-
