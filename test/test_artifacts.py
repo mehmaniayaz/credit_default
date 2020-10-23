@@ -1,12 +1,10 @@
 import unittest
 from src.setup import *
 from src.artifacts import *
-from sklearn.datasets import make_classification
-import pandas as pd
-import numpy as np
 import os
 from pathlib import Path
 import shutil
+import matplotlib.pyplot as plt
 
 
 class TestArtifactsGeneration(unittest.TestCase):
@@ -21,8 +19,8 @@ class TestArtifactsGeneration(unittest.TestCase):
     def test_generate_jitter_crossplot(self):
         x = self.df[self.cat_feature_list[0]].to_numpy()
         y = self.df[self.cat_feature_list[1]].to_numpy()
-
-        generate_cat_cat_jitter_crossplot(x,y)
+        generate_cat_cat_jitter_crossplot(x, y)
+        plt.close('all')
 
     def tearDown(self) -> None:
         shutil.rmtree(Path('./tmpt'))

@@ -1,6 +1,8 @@
 import matplotlib.pyplot as plt
 import prince
 from pathlib import Path
+import seaborn as sns
+import numpy as np
 
 
 def generate_mca(df, save_path):
@@ -34,10 +36,13 @@ def generate_mca(df, save_path):
         show_column_labels=True,
         legend_n_cols=2
     )
-    plt.savefig(save_path/Path('mca.png'))
+    plt.savefig(save_path / Path('mca.png'))
     plt.close('all')
 
-def generate_cat_cat_jitter_crossplot(x,y,**kwargs):
 
-    
+def generate_cat_cat_jitter_crossplot(x, y, **kwargs):
+
+    x = x + (np.random.rand() - 0.5) / 3
+    y = y + (np.random.rand() - 0.5) / 3
+    sns.scatterplot(x, y, **kwargs)
 
