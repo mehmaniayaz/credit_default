@@ -53,12 +53,13 @@ def encode_df_cat_columns(df):
     :return: dataframe with encoded variables
     """
     cat_feature_list = [x for x in df.columns if x not in df._get_numeric_data().columns]
-    encode_dict_df = list()
+    encode_dict_df = dict()
     for feature in cat_feature_list:
         counter = 0
         val_list = np.unique(df[feature])
+        encode_dict_df[feature] = dict()
         for val in val_list:
             encode_dict_df[feature][val] = counter
             counter += 1
 
-    return df.replace(encode_dict_df, inplace=True)
+    return df.replace(encode_dict_df)
