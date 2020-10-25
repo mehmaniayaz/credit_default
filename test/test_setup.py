@@ -17,3 +17,4 @@ class TestSetUp(unittest.TestCase):
         self.assertListEqual(y, y_pred)
 
     def test_encode_df_cat_columns(self):
+        pass

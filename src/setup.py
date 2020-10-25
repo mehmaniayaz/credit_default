@@ -45,4 +45,20 @@ def encode_string_list(x):
     y = [dict_encode[x] for x in x]
     return y
 
+
 def encode_df_cat_columns(df):
+    """
+    Encode the categorical variables of a dataframe
+    :param df: dataframe with numerical and categorical variables
+    :return: dataframe with encoded variables
+    """
+    cat_feature_list = [x for x in df.columns if x not in df._get_numeric_data().columns]
+    encode_dict_df = list()
+    for feature in cat_feature_list:
+        counter = 0
+        val_list = np.unique(df[feature])
+        for val in val_list:
+            encode_dict_df[feature][val] = counter
+            counter += 1
+
+    return df.replace(encode_dict_df, inplace=True)
