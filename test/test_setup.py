@@ -1,4 +1,5 @@
 import unittest
+from pandas._testing import assert_frame_equal
 from src.setup import *
 
 
@@ -19,7 +20,16 @@ class TestSetUp(unittest.TestCase):
     def test_encode_df_cat_columns(self):
         df = generate_cat_num_dataframe(n_samples=100, n_features=10, n_cats=2)
         cat_feature_list = [x for x in df.columns if x not in df._get_numeric_data().columns]
-        df_encoded = encode_df_cat_columns(df)
+        df_encoded, encode_dict_df = encode_df_cat_columns(df)
         test_df = np.unique(df[cat_feature_list[0]])
-        test_df_encoded = np.unique(df_encoded[cat_feature_list[0]])
+        test_df_encoded  = np.unique(df_encoded[cat_feature_list[0]])
         self.assertEqual(len(test_df), len(test_df_encoded))
+
+    def test_reverse_encode_df_cat_columns(self):
+        df = generate_cat_num_dataframe(n_samples=100, n_features=10, n_cats=2)
+        cat_feature_list = [x for x in df.columns if x not in df._get_numeric_data().columns]
+        df_encoded, encode_dict_df = encode_df_cat_columns(df)
+
+        df_decoded = reverse_encode_df_cat_columns(df_encoded, encode_dict_df)
+        self.assertIsNone(assert_frame_equal(df, df_decoded))
+

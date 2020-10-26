@@ -24,6 +24,7 @@ def generate_cat_num_dataframe(n_samples=100, n_features=10, n_cats=2):
         dict_col[feature] = 'cat_' + feature
         bin_number = random.sample(bins_list, 1)[0]
         df[feature] = pd.cut(df[feature], bins=bin_number, labels=['lbl_' + str(x) for x in range(bin_number)])
+    df[cat_feature_list] = df[cat_feature_list].astype('string')
     df.rename(columns=dict_col, inplace=True)
     return df
 
@@ -62,4 +63,21 @@ def encode_df_cat_columns(df):
             encode_dict_df[feature][val] = counter
             counter += 1
 
-    return df.replace(encode_dict_df)
+    return df.replace(encode_dict_df), encode_dict_df
+
+
+def reverse_encode_df_cat_columns(df,encode_dict):
+    """
+    Reverse the encodings of a dataframe back to its categorical variables
+    :param df: encoded dataframe
+    :param encode_dict: nested dictionary that was used for encoding the original dataframe
+    :return: dataframe that is now decoded
+    """
+    decode_dict={}
+    for feature in encode_dict.keys():
+        decode_dict[feature] = {v: k for k, v in encode_dict[feature].items()}
+    df_decoded = df.replace(decode_dict)
+    df_decoded[list(encode_dict.keys())] = df_decoded[encode_dict.keys()].astype('string')
+    return df_decoded
+
+    

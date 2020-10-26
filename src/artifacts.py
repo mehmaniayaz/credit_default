@@ -23,10 +23,11 @@ def generate_mca(df, save_path):
         random_state=42
     )
 
-    mca.fit(df_cc_cat)
+    mca.fit(df_cc_cat.astype('category'))
+
 
     mca.plot_coordinates(
-        X=df_cc_cat,
+        X=df_cc_cat.astype('category'),
         ax=None,
         figsize=(7, 7),
         show_row_points=False,
@@ -56,6 +57,6 @@ def generate_cat_jitter_pairplot(df):
     df, dict_rename = encode_df_cat_columns(df)
     df[cat_feature_list] = df[cat_feature_list].applymap(lambda x: x + (np.random.rand() - 0.5) / 3)
 
-    ax = sns.pairplot(df=df, hue='target')
+    ax = sns.pairplot(data=df, hue='target')
     ax.savefig(Path('./tmpt'))
     plt.close('all')
