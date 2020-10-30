@@ -8,8 +8,8 @@ import numpy as np
 
 def generate_mca(df, save_path=None):
     """
-    :param df:
-    :param save_path:
+    :param df: dataframe entered that contains categorical variables but can also contain numerical ones
+    :param save_path: path for saving the figure
     :return:
     """
     cat_feature_list = [x for x in df.columns if x not in df._get_numeric_data().columns]
@@ -60,6 +60,11 @@ def generate_cat_cat_jitter_crossplot(x, y, **kwargs): """
 
 
 def generate_cat_jitter_pairplot(df):
+    """
+    generate a pairplot of dataframe with categorical features whose dummy variables are jittered for calrity
+    :param df: dataframe to be visualized
+    :return:
+    """
     cat_feature_list = [x for x in df.columns if x not in df._get_numeric_data().columns]
     df, dict_rename = encode_df_cat_columns(df)
     df[cat_feature_list] = df[cat_feature_list].applymap(lambda x: x + (np.random.rand() - 0.5) / 3)
