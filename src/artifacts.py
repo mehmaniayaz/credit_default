@@ -6,7 +6,7 @@ from src.setup import encode_string_list, encode_df_cat_columns
 import numpy as np
 
 
-def generate_mca(df, save_path):
+def generate_mca(df, save_path=None):
     """
     :param df:
     :param save_path:
@@ -38,8 +38,9 @@ def generate_mca(df, save_path):
         show_column_labels=True,
         legend_n_cols=2
     )
-    plt.savefig(save_path / Path('mca.png'))
-    plt.close('all')
+    if save_path is not None:
+        plt.savefig(save_path / Path('mca.png'))
+        plt.close('all')
 
 
 def generate_cat_cat_jitter_crossplot(x, y, **kwargs):
