@@ -45,6 +45,9 @@ def generate_mca(df, save_path=None):
 
 def generate_cat_cat_jitter_crossplot(x, y, **kwargs):
     """
+    :Summary: Create a scatterplot of two categorical variables. Each categorical string variable will first be
+        encoded and then jittered for clarity.
+
     :param x: list of variables entered for x axis
     :param y: list of variables entered for y axis
     :param kwargs: obligagtory dictionary meant to pass into pairgrid
@@ -61,9 +64,10 @@ def generate_cat_cat_jitter_crossplot(x, y, **kwargs):
 
 def generate_cat_jitter_pairplot(df):
     """
-    generate a pairplot of dataframe with categorical features whose dummy variables are jittered for calrity
+    :Summary: Generate a pairplot for a dataframe with categorical features whose dummy variables are jittered for clarity.
+
     :param df: dataframe to be visualized
-    :return:
+    :return: None
     """
     cat_feature_list = [x for x in df.columns if x not in df._get_numeric_data().columns]
     df, dict_rename = encode_df_cat_columns(df)

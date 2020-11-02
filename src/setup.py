@@ -6,8 +6,8 @@ import random
 
 def generate_cat_num_dataframe(n_samples=100, n_features=10, n_cats=2):
     """
-    Summary: generate a random dataframe with a mix of categorical and numerical variables and a single
-    binary target variable.
+    :Summary: Generate a random dataframe with a mix of categorical and numerical variables and a single binary target variable.
+
     :param n_samples: number of samples
     :param n_features: number of features
     :param n_cats: number of categorical features
@@ -31,13 +31,15 @@ def generate_cat_num_dataframe(n_samples=100, n_features=10, n_cats=2):
 
 def encode_string_list(x):
     """
-    Summary: take a list of strings x and encode its values to a list of integers.
+    :Summary: Take a list of strings x and encode its values to a list of integers.
+
     :param x: list of strings
     :return y: list of integers that are codes for x. x is sorted before being encoded.
 
-    Example:
-    x = ['cat', 'dog', 'book', 'pencil', 'dog', 'book']
-    y = [1, 2, 0, 3, 2, 0]
+    :Example:
+        x = ['cat', 'dog', 'book', 'pencil', 'dog', 'book']
+
+        y = [1, 2, 0, 3, 2, 0]
     """
     x_sorted = np.sort(x)
     keys = np.unique(x_sorted)
@@ -49,7 +51,8 @@ def encode_string_list(x):
 
 def encode_df_cat_columns(df):
     """
-    Encode the categorical variables of a dataframe
+    :Summary: Encode the categorical variables of a dataframe.
+
     :param df: dataframe with numerical and categorical variables
     :return: dataframe with encoded variables
     """
@@ -68,7 +71,8 @@ def encode_df_cat_columns(df):
 
 def reverse_encode_df_cat_columns(df,encode_dict):
     """
-    Reverse the encodings of a dataframe back to its categorical variables
+    :Summary: Reverse the encodings of a dataframe back to its categorical variables.
+
     :param df: encoded dataframe
     :param encode_dict: nested dictionary that was used for encoding the original dataframe
     :return: dataframe that is now decoded
