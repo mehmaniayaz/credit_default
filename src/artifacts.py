@@ -43,8 +43,8 @@ def generate_mca(df, save_path=None):
         plt.close('all')
 
 
-def generate_cat_cat_jitter_crossplot(x, y, **kwargs): """
-
+def generate_cat_cat_jitter_crossplot(x, y, **kwargs):
+    """
     :param x: list of variables entered for x axis
     :param y: list of variables entered for y axis
     :param kwargs: obligagtory dictionary meant to pass into pairgrid
