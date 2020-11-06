@@ -10,4 +10,4 @@ class TestSetUp(unittest.TestCase):
         df['ordinal_feature'] = ['carrot', 'cake', 'apple', 'Pony', 'BanAna']
         encoded_arr_true = [3, 2, 0, 5, 1]
         encoded_arr_predicted = np.array(alphabetize_ordinals(df))
-        self.assertTrue(encoded_arr_true , encoded_arr_predicted)
+        self.assertTrue((encoded_arr_true == encoded_arr_predicted).all())
