@@ -20,7 +20,7 @@ class TestSetUp(unittest.TestCase):
     def test_transform_features(self):
         df = generate_cat_num_dataframe(n_samples=100, n_features=10, n_cats=2)
         cat_columns = [x for x in df.columns if 'cat' in x]
-        order_list = ['lbl_3', 'lbl_0','lbl_4', 'lbl_1', 'lbl_2']
-        dict_features = {'cat_feature_5': 'c', 'cat_feature_8': 'o'}
+        order_list = ['lbl_3', 'lbl_0', 'lbl_4', 'lbl_1', 'lbl_2']
+        dict_features = {cat_columns[0]: 'c', cat_columns[1]: 'o'}
         df['cat_feature_8'] = alphabetize_ordinals(df[cat_columns[0]], order_list)
         df = transform_features(df, dict_features)

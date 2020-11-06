@@ -36,8 +36,13 @@ def transform_features(df, dict_features):
     """
 
     labelencoder = LabelEncoder()
-    for key, val in dict_features:
+    cat_features = list()
+    for key, val in dict_features.items():
         if val == 'o':
             df[key] = labelencoder.fit_transform(df[key])
-    df = pd.get_dummies(df, columns=dict_features['c'], drop_first=True)
+        elif val == 'c':
+            cat_features.append(key)
+        else:
+            raise ValueError('Unidentified feature type. Please either enter "o" or "c"')
+    df = pd.get_dummies(df, columns=cat_features, drop_first=True)
     return df
