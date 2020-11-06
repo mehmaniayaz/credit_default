@@ -13,7 +13,7 @@ def alphabetize_ordinals(df,list_ordinals):
     :param df: single column dataframe with the ordinal feature selected
     :return: a column dataframe with the feature values encoded
     """
-
+    df = df.to_frame()
     if len(df.columns) != 1:
         raise ValueError("dataframe needs to have a single column")
 
