@@ -46,3 +46,11 @@ def transform_features(df, dict_features):
             raise ValueError('Unidentified feature type. Please either enter "o" or "c"')
     df = pd.get_dummies(df, columns=cat_features, drop_first=True)
     return df
+
+def train_model(df,model_info):
+    """
+    Summary: train a model and output trained model in a pickle format along with relevant artifacts
+    :param df: dataframe following processing
+    :param model_info: dictionary containing model information
+    :return:
+    """

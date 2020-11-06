@@ -28,3 +28,7 @@ class TestSetUp(unittest.TestCase):
         n_unique_dummies = len([x for x in df_transformed.columns if cat_columns[1] in x])
         self.assertTrue(n_unique_cats,n_unique_dummies)
 
+    def test_train_model(self):
+        #model_info should entail information about model
+        train_model(df,model_info)
+
