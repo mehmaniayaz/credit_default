@@ -1,6 +1,7 @@
 import unittest
 from pandas._testing import assert_frame_equal
 from src.models import *
+from src.setup import *
 
 
 class TestSetUp(unittest.TestCase):
@@ -12,6 +13,14 @@ class TestSetUp(unittest.TestCase):
                             '3__pony', '2__banana']
         ordinal_list = ['cake', 'carrot', 'banana', 'pony', 'apple']
         temp = alphabetize_ordinals(df['ordinal_feature'], ordinal_list)
-        encoded_arr_predicted  = list(np.array(temp).ravel())
+        encoded_arr_predicted = list(np.array(temp).ravel())
 
         self.assertTrue(encoded_arr_true == encoded_arr_predicted)
+
+    def test_transform_features(self):
+        df = generate_cat_num_dataframe(n_samples=100, n_features=10, n_cats=2)
+        cat_columns = [x for x in df.columns if 'cat' in x]
+        order_list = ['lbl_3', 'lbl_0','lbl_4', 'lbl_1', 'lbl_2']
+        dict_features = {'cat_feature_5': 'c', 'cat_feature_8': 'o'}
+        df['cat_feature_8'] = alphabetize_ordinals(df[cat_columns[0]], order_list)
+        df = transform_features(df, dict_features)
