@@ -23,4 +23,8 @@ class TestSetUp(unittest.TestCase):
         order_list = ['lbl_3', 'lbl_0', 'lbl_4', 'lbl_1', 'lbl_2']
         dict_features = {cat_columns[0]: 'c', cat_columns[1]: 'o'}
         df['cat_feature_8'] = alphabetize_ordinals(df[cat_columns[0]], order_list)
-        df = transform_features(df, dict_features)
+        n_unique_cats = len(np.unique(df[cat_columns[1]]))-1
+        df_transformed = transform_features(df, dict_features)
+        n_unique_dummies = len([x for x in df_transformed.columns if cat_columns[1] in x])
+        self.assertTrue(n_unique_cats,n_unique_dummies)
+
