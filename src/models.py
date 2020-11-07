@@ -88,23 +88,27 @@ def train_model(df, model_info):
 
     clf.fit(X_train, y_train)
 
-    pickle.dump(clf, open('../results/' + model_info['model_name'] + '.sav', 'wb'))
+    pickle.dump(clf, open('../results/' + model_info['model_name'] + '/trained_model.sav', 'wb'))
 
     if model_info['plot_confusion_matrix']:
         # annotate overfitting score in the confusion matrix plot
         over_fitting_score = balanced_accuracy_score(y_test, clf.predict(X_test)) / balanced_accuracy_score(y_train,
                                                                                                             clf.predict(
                                                                                                                 X_train))
-        plt.figure(figsize=(10, 10))
+        testing_score = balanced_accuracy_score(y_test, clf.predict(X_test))
+        training_score = balanced_accuracy_score(y_train, clf.predict(X_train))
+        fig = plt.figure(figsize=(10, 10),facecolor='white')
         plot_confusion_matrix(clf, X_test, y_test, display_labels=['No', 'Yes'], normalize='true')
-        plt.title('Test set. Overfitting score is: {}'.format(over_fitting_score))
-        plt.savefig('../results/' + model_info['model_name'] + '/confusion-matrix-test.png')
+        plt.title('Test set. Overfitting score is: {}\nTraining error is: {}'.format(round(over_fitting_score,2),round(training_score,2)))
+        plt.tight_layout()
+        plt.savefig('../results/' + model_info['model_name'] + '/confusion-matrix-test.png',facecolor=fig.get_facecolor(), edgecolor='none')
         plt.close()
 
-        plt.figure(figsize=(10, 10))
+        fig = plt.figure(figsize=(10, 10),facecolor='white')
         plot_confusion_matrix(clf, X_train, y_train, display_labels=['No', 'Yes'], normalize='true')
-        plt.title('Training set. Overfitting score is: {}'.format(over_fitting_score))
-        plt.savefig('../results/' + model_info['model_name'] + '/confusion-matrix-train.png')
+        plt.title('Training set. Overfitting score is: {}\nTesting error is: {}'.format(round(over_fitting_score,2),round(testing_score,2)))
+        plt.tight_layout()
+        plt.savefig('../results/' + model_info['model_name'] + '/confusion-matrix-train.png',facecolor=fig.get_facecolor(), edgecolor='none')
         plt.close()
 
     if model_info['learning_curve']:
