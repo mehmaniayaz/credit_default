@@ -116,8 +116,9 @@ def train_model(df, model_info):
                                                                                       y=y_train, scoring=make_scorer(
                 balanced_accuracy_score), return_times=True)
 
-        plt.figure(figsize=(10, 10))
+        fig=plt.figure(figsize=(10, 10))
         plt.scatter(train_size / len(y_train), np.mean(train_scores, axis=1), c='b')
         plt.scatter(train_size / len(y_train), np.mean(test_scores, axis=1), c='r')
-        plt.savefig('../results/' + model_info['model_name'] + '/learning_curve.png')
+        plt.tight_layout()
+        plt.savefig('../results/' + model_info['model_name'] + '/learning_curve.png',facecolor=fig.get_facecolor(), edgecolor='none')
         plt.close()
