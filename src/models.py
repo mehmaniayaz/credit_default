@@ -10,6 +10,9 @@ from sklearn.model_selection import RandomizedSearchCV
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import plot_confusion_matrix
 import matplotlib.pyplot as plt
+from sklearn.model_selection import learning_curve
+import pickle
+import os
 
 
 def alphabetize_ordinals(df, list_ordinals):
@@ -49,7 +52,7 @@ def transform_features(df, dict_features):
             df[key] = labelencoder.fit_transform(df[key])
         elif val == 'c':
             cat_features.append(key)
-        else:
+        elif val != 'n':
             raise ValueError('Unidentified feature type. Please either enter "o" or "c"')
     df = pd.get_dummies(df, columns=cat_features, drop_first=True)
     return df
@@ -67,6 +70,7 @@ def train_model(df, model_info):
     targets = model_info['targets']
     test_size = model_info['test_size']
     random_state = model_info['random_state']
+    parameters = model_info['parameters']
 
     X = np.array(df[features])
     y = np.array(df[targets])
@@ -75,16 +79,18 @@ def train_model(df, model_info):
                                                         random_state=random_state, stratify=y)
 
     clf_scorer = make_scorer(score_func=balanced_accuracy_score, greater_is_better=True)
-    parameters = {'n_estimators': [100, 200, 600],
-                  'max_depth': [2, 5, 10, 100],
-                  'min_samples_split': [2, 4, 6]}
+
     clf = RandomizedSearchCV(RandomForestClassifier(), parameters, scoring=clf_scorer)
 
     clf.fit(X_train, y_train)
 
+    pickle.dump(clf, open('../results/'+model_info['model_name'] + '.sav', 'wb'))
+
     if model_info['plot_confusion_matrix']:
         # annotate overfitting score in the confusion matrix plot
-        over_fitting_score = clf.predict(X_test) / clf.predict(X_train)
+        over_fitting_score = balanced_accuracy_score(y_test, clf.predict(X_test)) / balanced_accuracy_score(y_train,
+                                                                                                            clf.predict(
+                                                                                                                X_train))
         plt.figure(figsize=(10, 10))
         plot_confusion_matrix(clf, X_test, y_test, display_labels=['No', 'Yes'], normalize='true')
         plt.title('Test set. Overfitting score is: {}'.format(over_fitting_score))
@@ -96,3 +102,10 @@ def train_model(df, model_info):
         plt.title('Training set. Overfitting score is: {}'.format(over_fitting_score))
         plt.savefig('../results/confusion-matrix-train.png')
         plt.close()
+
+    if model_info['learning_curve']:
+        train_size, train_scores, test_scores, fit_times, score_time = learning_curve(estimator=clf, X=X_train,
+                                                                                      y=y_train, scoring=make_scorer(
+                balanced_accuracy_score), return_times=True)
+        plt.scatter(train_size / len(y_train), np.mean(train_scores, axis=1), c='b')
+        plt.scatter(train_size / len(y_train), np.mean(test_scores, axis=1), c='r')
