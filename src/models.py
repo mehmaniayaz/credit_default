@@ -65,6 +65,10 @@ def train_model(df, model_info):
     :param model_info: dictionary containing model information
     :return:
     """
+    if os.path.isdir('../results/' + model_info['model_name']):
+        raise ValueError('A model with this name already exists!')
+    else:
+        os.makedirs('../results/' + model_info['model_name'])
 
     features = model_info['features']
     targets = model_info['targets']
@@ -84,7 +88,7 @@ def train_model(df, model_info):
 
     clf.fit(X_train, y_train)
 
-    pickle.dump(clf, open('../results/'+model_info['model_name'] + '.sav', 'wb'))
+    pickle.dump(clf, open('../results/' + model_info['model_name'] + '.sav', 'wb'))
 
     if model_info['plot_confusion_matrix']:
         # annotate overfitting score in the confusion matrix plot
@@ -94,18 +98,22 @@ def train_model(df, model_info):
         plt.figure(figsize=(10, 10))
         plot_confusion_matrix(clf, X_test, y_test, display_labels=['No', 'Yes'], normalize='true')
         plt.title('Test set. Overfitting score is: {}'.format(over_fitting_score))
-        plt.savefig('../results/confusion-matrix-test.png')
+        plt.savefig('../results/' + model_info['model_name'] + '/confusion-matrix-test.png')
         plt.close()
 
         plt.figure(figsize=(10, 10))
         plot_confusion_matrix(clf, X_train, y_train, display_labels=['No', 'Yes'], normalize='true')
         plt.title('Training set. Overfitting score is: {}'.format(over_fitting_score))
-        plt.savefig('../results/confusion-matrix-train.png')
+        plt.savefig('../results/' + model_info['model_name'] + '/confusion-matrix-train.png')
         plt.close()
 
     if model_info['learning_curve']:
         train_size, train_scores, test_scores, fit_times, score_time = learning_curve(estimator=clf, X=X_train,
                                                                                       y=y_train, scoring=make_scorer(
                 balanced_accuracy_score), return_times=True)
+
+        plt.figure(figsize=(10, 10))
         plt.scatter(train_size / len(y_train), np.mean(train_scores, axis=1), c='b')
         plt.scatter(train_size / len(y_train), np.mean(test_scores, axis=1), c='r')
+        plt.savefig('../results/' + model_info['model_name'] + '/learning_curve.png')
+        plt.close()
