@@ -97,22 +97,22 @@ def train_model(df, model_info):
                                                                                                                 X_train))
         testing_score = balanced_accuracy_score(y_test, clf.predict(X_test))
         training_score = balanced_accuracy_score(y_train, clf.predict(X_train))
-        fig = plt.figure(figsize=(10, 10), facecolor='white')
+        fig = plt.figure(figsize=(20, 20), facecolor='white',dpi=1000)
         plot_confusion_matrix(clf, X_test, y_test, display_labels=['No', 'Yes'], normalize='true')
-        plt.title('Test set. Overfitting score is: {}\nTraining score is: {}'.format(round(over_fitting_score, 2),
+        plt.title('Test set: overfitting score is: {}\nTraining score is: {}'.format(round(over_fitting_score, 2),
                                                                                      round(training_score, 2)))
         plt.tight_layout()
         plt.savefig('../results/' + model_info['model_name'] + '/confusion-matrix-test.png',
-                    facecolor=fig.get_facecolor(), edgecolor='none')
+                    facecolor=fig.get_facecolor(), edgecolor='none',dpi=1000)
         plt.close()
 
-        fig = plt.figure(figsize=(10, 10), facecolor='white')
+        fig = plt.figure(figsize=(20, 20), facecolor='white',dpi=1000)
         plot_confusion_matrix(clf, X_train, y_train, display_labels=['No', 'Yes'], normalize='true')
-        plt.title('Training set. Overfitting score is: {}\nTesting score is: {}'.format(round(over_fitting_score, 2),
+        plt.title('Training set: overfitting score is: {}\nTesting score is: {}'.format(round(over_fitting_score, 2),
                                                                                         round(testing_score, 2)))
         plt.tight_layout()
         plt.savefig('../results/' + model_info['model_name'] + '/confusion-matrix-train.png',
-                    facecolor=fig.get_facecolor(), edgecolor='none')
+                    facecolor=fig.get_facecolor(), edgecolor='none',dpi=1000)
         plt.close()
 
     if model_info['learning_curve']:
