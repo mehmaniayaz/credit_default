@@ -97,18 +97,22 @@ def train_model(df, model_info):
                                                                                                                 X_train))
         testing_score = balanced_accuracy_score(y_test, clf.predict(X_test))
         training_score = balanced_accuracy_score(y_train, clf.predict(X_train))
-        fig = plt.figure(figsize=(10, 10),facecolor='white')
+        fig = plt.figure(figsize=(10, 10), facecolor='white')
         plot_confusion_matrix(clf, X_test, y_test, display_labels=['No', 'Yes'], normalize='true')
-        plt.title('Test set. Overfitting score is: {}\nTraining score is: {}'.format(round(over_fitting_score,2),round(training_score,2)))
+        plt.title('Test set. Overfitting score is: {}\nTraining score is: {}'.format(round(over_fitting_score, 2),
+                                                                                     round(training_score, 2)))
         plt.tight_layout()
-        plt.savefig('../results/' + model_info['model_name'] + '/confusion-matrix-test.png',facecolor=fig.get_facecolor(), edgecolor='none')
+        plt.savefig('../results/' + model_info['model_name'] + '/confusion-matrix-test.png',
+                    facecolor=fig.get_facecolor(), edgecolor='none')
         plt.close()
 
-        fig = plt.figure(figsize=(10, 10),facecolor='white')
+        fig = plt.figure(figsize=(10, 10), facecolor='white')
         plot_confusion_matrix(clf, X_train, y_train, display_labels=['No', 'Yes'], normalize='true')
-        plt.title('Training set. Overfitting score is: {}\nTesting score is: {}'.format(round(over_fitting_score,2),round(testing_score,2)))
+        plt.title('Training set. Overfitting score is: {}\nTesting score is: {}'.format(round(over_fitting_score, 2),
+                                                                                        round(testing_score, 2)))
         plt.tight_layout()
-        plt.savefig('../results/' + model_info['model_name'] + '/confusion-matrix-train.png',facecolor=fig.get_facecolor(), edgecolor='none')
+        plt.savefig('../results/' + model_info['model_name'] + '/confusion-matrix-train.png',
+                    facecolor=fig.get_facecolor(), edgecolor='none')
         plt.close()
 
     if model_info['learning_curve']:
@@ -116,9 +120,14 @@ def train_model(df, model_info):
                                                                                       y=y_train, scoring=make_scorer(
                 balanced_accuracy_score), return_times=True)
 
-        fig=plt.figure(figsize=(10, 10))
-        plt.scatter(train_size / len(y_train), np.mean(train_scores, axis=1), c='b')
-        plt.scatter(train_size / len(y_train), np.mean(test_scores, axis=1), c='r')
+        fig = plt.figure(figsize=(10, 10), facecolor='white')
+        plt.scatter(train_size / len(y_train), np.mean(train_scores, axis=1), c='b',
+                    label='training')
+        plt.scatter(train_size / len(y_train), np.mean(test_scores, axis=1), c='r', label='testing')
+        plt.xlabel('training size (% of total samples)', fontsize=15)
+        plt.ylabel('score', fontsize=15)
+        plt.legend(prop={"size":15})
         plt.tight_layout()
-        plt.savefig('../results/' + model_info['model_name'] + '/learning_curve.png',facecolor=fig.get_facecolor(), edgecolor='none')
+        plt.savefig('../results/' + model_info['model_name'] + '/learning_curve.png', facecolor=fig.get_facecolor(),
+                    edgecolor='none')
         plt.close()
