@@ -6,8 +6,8 @@ RUN pip3 -q install pip
 RUN mkdir src
 WORKDIR src/
 COPY . .
+EXPOSE 8888
 
 RUN pip3 install -r requirements.txt
-CMD ["jupyter", "notebook", "--port=8888", "--no-browser", "--ip=0.0.0.0", "--allow-root"]
 
 
