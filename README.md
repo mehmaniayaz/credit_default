@@ -11,10 +11,10 @@ select features and tune hyperparameters conveniently.
 
 Figure 1: Test set confusion matrix. Results are normalized by the true values for each class.
 
-<img src="./results/testing/feature_importance.png" width="80%"/>
+<img src="./results/testing/feature_importance.png" width="40%"/>
 Figure 2: Feature importance for the trained model.
 
-<img src="./results/testing/learning_curve.png" width="80%"/>
+<img src="./results/testing/learning_curve.png" width="40%"/>
 Figure 3: Learning curve indicates our model and dataset are prone to overfitting.
 
 
