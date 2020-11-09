@@ -10,7 +10,9 @@ select features and tune hyperparameters conveniently.
 <p align="center">
 <img src="./results/testing/confusion-matrix-test.png" width="80%"/>
 </p>
+<div style="text-align: center">
 Figure 1: Test set confusion matrix. Results are normalized by the true values for each class.
+</div>
 
 
 
