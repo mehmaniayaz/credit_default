@@ -134,7 +134,7 @@ def train_model(df, model_info):
         plt.close()
     if model_info['feature_importance']:
         imps = permutation_importance(clf, X_train, y_train, n_repeats=10)
-        fig, ax = plt.subplots(figsize=(12, 12))
+        fig, ax = plt.subplots(figsize=(12, 12),facecolor='white')
         sorted_idx = imps.importances_mean.argsort()
         ax.boxplot(imps.importances[sorted_idx].T,
                    vert=False, labels=features)
