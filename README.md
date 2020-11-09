@@ -14,17 +14,9 @@ Figure 1: Test set confusion matrix. Results are normalized by the true values f
 
 
 
-<p align="center">
-<img src="./results/testing/feature_importance.png" width="40%" align="center"/>
-</p>
-Figure 2: Feature importance for the trained model.
+<img src="./results/testing/feature_importance.png" width="40%" align="center"/><img src="./results/testing/learning_curve.png" width="40%" align="center"/>
 
-
-<p align="center">
-<img src="./results/testing/learning_curve.png" width="40%" align="center"/>
-</p>
-
-Figure 3: Learning curve indicates our model and dataset are prone to overfitting.
+Figure 2: Feature importance and learning curve for the trained model. The latter illustrates our model and dataset are prone to overfitting.
 
 
 ## Dataset <a name="dataset"></a>
