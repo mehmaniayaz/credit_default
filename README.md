@@ -12,6 +12,7 @@ select features and tune hyperparameters conveniently.
 </p>
 Figure 1: Test set confusion matrix. Results are normalized by the true values for each class.
 
+<br></br>
 
 
 <img src="./results/testing/feature_importance.png" width="40%" align="center"/><img src="./results/testing/learning_curve.png" width="40%" align="center"/>
