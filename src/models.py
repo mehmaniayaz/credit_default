@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import learning_curve
 import pickle
 import os
+from sklearn.inspection import permutation_importance
 
 
 def alphabetize_ordinals(df, list_ordinals):
@@ -120,14 +121,27 @@ def train_model(df, model_info):
                                                                                       y=y_train, scoring=make_scorer(
                 balanced_accuracy_score), return_times=True)
 
-        fig = plt.figure(figsize=(10, 10), facecolor='white')
+        fig = plt.figure(figsize=(5, 5), facecolor='white',dpi=600)
         plt.scatter(train_size / len(y_train), np.mean(train_scores, axis=1), c='b',
                     label='training')
         plt.scatter(train_size / len(y_train), np.mean(test_scores, axis=1), c='r', label='testing')
-        plt.xlabel('training size (% of total samples)', fontsize=15)
-        plt.ylabel('score', fontsize=15)
-        plt.legend(prop={"size":15})
+        plt.xlabel('training size (% of total samples)', fontsize=16)
+        plt.ylabel('score', fontsize=16)
+        plt.legend(prop={"size":16})
         plt.tight_layout()
         plt.savefig('../results/' + model_info['model_name'] + '/learning_curve.png', facecolor=fig.get_facecolor(),
-                    edgecolor='none')
+                    edgecolor='none',dpi=600)
+        plt.close()
+    if model_info['feature_importance']:
+        imps = permutation_importance(clf, X_train, y_train, n_repeats=10)
+        fig, ax = plt.subplots(figsize=(12, 12),facecolor='white',dpi=600)
+        sorted_idx = imps.importances_mean.argsort()
+        ax.boxplot(imps.importances[sorted_idx].T,
+                   vert=False, labels=features)
+        ax.set_title("Permutation Importance of each feature", fontsize=15)
+        ax.set_ylabel("Features", fontsize=20)
+        ax.tick_params(labelsize=16)
+        fig.tight_layout()
+        plt.savefig('../results/'+model_info['model_name']+'/feature_importance.png',facecolor=fig.get_facecolor(),
+                    edgecolor='none',dpi=600)
         plt.close()

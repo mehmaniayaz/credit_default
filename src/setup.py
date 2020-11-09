@@ -69,7 +69,7 @@ def encode_df_cat_columns(df):
     return df.replace(encode_dict_df), encode_dict_df
 
 
-def reverse_encode_df_cat_columns(df,encode_dict):
+def reverse_encode_df_cat_columns(df, encode_dict):
     """
     :Summary: Reverse the encodings of a dataframe back to its categorical variables.
 
@@ -77,11 +77,22 @@ def reverse_encode_df_cat_columns(df,encode_dict):
     :param encode_dict: nested dictionary that was used for encoding the original dataframe
     :return: dataframe that is now decoded
     """
-    decode_dict={}
+    decode_dict = {}
     for feature in encode_dict.keys():
         decode_dict[feature] = {v: k for k, v in encode_dict[feature].items()}
     df_decoded = df.replace(decode_dict)
     df_decoded[list(encode_dict.keys())] = df_decoded[encode_dict.keys()].astype('string')
     return df_decoded
 
-    
+
+def Merg(dict1, dict2):
+    """
+    Summary: Merge two dictionary with each other.
+    :param dict1: first dictionary to be merged
+    :param dict2: second dictionary to be merged
+    :return:
+    """
+    dict3 = {}
+    dict3.update(dict1)
+    dict3.update(dict2)
+    return dict3
