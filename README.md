@@ -28,4 +28,4 @@ Figure 3: Learning curve indicates our model and dataset are prone to overfittin
 
 
 ## Dataset <a name="dataset"></a>
-You can find the data [here](https://archive.ics.uci.edu/ml/datasets/default+o+credit+card+clients#).f
+You can find the data [here](https://archive.ics.uci.edu/ml/datasets/default+o+credit+card+clients#).
