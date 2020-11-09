@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import learning_curve
 import pickle
 import os
+from sklearn.inspection import permutation_importance
 
 
 def alphabetize_ordinals(df, list_ordinals):
@@ -129,5 +130,17 @@ def train_model(df, model_info):
         plt.legend(prop={"size":15})
         plt.tight_layout()
         plt.savefig('../results/' + model_info['model_name'] + '/learning_curve.png', facecolor=fig.get_facecolor(),
+                    edgecolor='none')
+        plt.close()
+    if model_info['feature_importance']:
+        imps = permutation_importance(clf, X_train, y_train, n_repeats=10)
+        fig, ax = plt.subplots(figsize=(12, 12))
+        sorted_idx = imps.importances_mean.argsort()
+        ax.boxplot(imps.importances[sorted_idx].T,
+                   vert=False, labels=features)
+        ax.set_title("Permutation Importance of each feature")
+        ax.set_ylabel("Features")
+        fig.tight_layout()
+        plt.savefig('../results/'+model_info['model_name']+'/feature_importance.png',facecolor=fig.get_facecolor(),
                     edgecolor='none')
         plt.close()
