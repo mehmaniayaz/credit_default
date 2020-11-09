@@ -9,18 +9,24 @@ select features and tune hyperparameters conveniently.
 
 <p align="center">
 <img src="./results/testing/confusion-matrix-test.png" width="80%"/>
-Figure 1: Test set confusion matrix. Results are normalized by the true values for each class.
 </p>
+Figure 1: Test set confusion matrix. Results are normalized by the true values for each class.
+
+
 
 <p align="center">
 <img src="./results/testing/feature_importance.png" width="40%" align="center"/>
-Figure 2: Feature importance for the trained model.
 </p>
+Figure 2: Feature importance for the trained model.
+
+
 
 <p align="center">
 <img src="./results/testing/learning_curve.png" width="40%" align="center"/>
-Figure 3: Learning curve indicates our model and dataset are prone to overfitting.
 </p>
+
+Figure 3: Learning curve indicates our model and dataset are prone to overfitting.
+
 
 ## Dataset <a name="dataset"></a>
 You can find the data [here](https://archive.ics.uci.edu/ml/datasets/default+o+credit+card+clients#).f
