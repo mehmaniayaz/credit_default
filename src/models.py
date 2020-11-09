@@ -138,8 +138,8 @@ def train_model(df, model_info):
         sorted_idx = imps.importances_mean.argsort()
         ax.boxplot(imps.importances[sorted_idx].T,
                    vert=False, labels=features)
-        ax.set_title("Permutation Importance of each feature")
-        ax.set_ylabel("Features")
+        ax.set_title("Permutation Importance of each feature", fontsize=15)
+        ax.set_ylabel("Features", fontsize=20)
         fig.tight_layout()
         plt.savefig('../results/'+model_info['model_name']+'/feature_importance.png',facecolor=fig.get_facecolor(),
                     edgecolor='none')
