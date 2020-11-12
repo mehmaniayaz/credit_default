@@ -21,4 +21,4 @@ Figure 2: Feature importance and learning curve for the trained model. The latte
 
 
 ## Dataset <a name="dataset"></a>
-You can find the data [here](https://archive.ics.uci.edu/ml/datasets/default+o+credit+card+clients#).
+You can find the data [here](https://archive.ics.uci.edu/ml/datasets/default+of+credit+card+clients).
